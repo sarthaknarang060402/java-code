@@ -38,7 +38,7 @@ pipeline{
                 }
                 }
             }
-            stage('Upload Artifacts to Nexus'){
+        stage('Upload Artifacts to Nexus'){
             
             steps{
 
@@ -60,6 +60,17 @@ pipeline{
                     protocol: 'http', 
                     repository: 'java-release', 
                     version: '1.0.0'
+                }
+            }
+        }
+        stage("Docker Image Build"){
+
+            steps {
+
+                script {
+                    sh 'docker image build -t $JOB_NAME:v1.$BUILD_ID .'
+                    sh 'docker image tag $JOB_NAME:v1.$BUILD_ID vishalchauhan9/$JOB_NAME:v1.$BUILD_ID'
+                    sh 'docker image tag $JOB_NAME:v1.$BUILD_ID vishalchauhan9/$JOB_NAME:latest'
                 }
             }
         }
