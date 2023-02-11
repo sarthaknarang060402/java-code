@@ -25,7 +25,7 @@ pipeline{
         stage('STATIC CODE ANALYSIS') {
             steps {
                 script{
-                    withSonarQubeEnv(credentialsId: 'mytoken') {
+                    withSonarQubeEnv(credentialsId: 'st') {
                         sh 'mvn clean package sonar:sonar'
                     }
                 }
